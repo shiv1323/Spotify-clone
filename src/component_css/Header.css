@@ -1,0 +1,31 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 30px;
+}
+
+.header__right {
+  display: flex;
+  align-items: center;
+}
+
+.header__left {
+  flex: 0.5;
+  display: flex;
+  background: #ffffff12;
+  padding: 10px;
+  border-radius: 30px;
+  color: #a7a7a7;
+  align-items: center;
+}
+
+.header__left > input {
+  border: none;
+  outline: none;
+  width: 100%;
+  color: #a7a7a7;
+  background: transparent;
+}
+input::placeholder {
+  color: #a7a7a7;
+}
