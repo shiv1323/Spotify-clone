@@ -41,4 +41,4 @@ Install dependencies
 ## Made By
 - [@Shivansh Verma](https://github.com/shiv1323/)
 
-- Special Thanks to:![Michael Thelin](https://github.com/thelinmichael/spotify-web-api-node) write beautiful documents how to use Spotify web API 
+- Special Thanks to:![@Michael Thelin](https://github.com/thelinmichael/spotify-web-api-node) write beautiful documents how to use Spotify web API 
