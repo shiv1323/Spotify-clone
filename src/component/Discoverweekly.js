@@ -9,6 +9,7 @@ import SpotifyWebApi from "spotify-web-api-js";
 import { BiTime } from "react-icons/bi";
 import { FiMoreHorizontal } from "react-icons/fi";
 import { Link } from "react-router-dom";
+import parse from "html-react-parser";
 const spotify = new SpotifyWebApi();
 
 function MillisecondsToMinutes(ms) {
@@ -21,25 +22,11 @@ function MillisecondsToMinutes(ms) {
 const Discoverweekly = () => {
   const [{ discover_weekly }, dispatch] = useStateValue();
 
-  console.log(discover_weekly);
+  const playPlaylist = (id = "") => {
+    let playlistIdRegex = /spotify:playlist:(\w+)/;
+    let matches = id.match(playlistIdRegex);
+    let playlistId = matches ? matches[1] : null;
 
-  const urlPattern =
-    /<a\s+href=['"]https:\/\/spotify\.com\/top5['"]>(.*?)<\/a>/;
-
-  let url = discover_weekly?.description;
-
-  let extractText = url.match(urlPattern);
-
-  const extractedText = extractText
-    ? ` What are your ${extractText[1]}? Share your favorite member and tracks with the universe.`
-    : discover_weekly?.description;
-
-  // let x= ""
-
-  const playPlaylist = (id) => {
-    const playlistIdRegex = /spotify:playlist:(\w+)/;
-    const matches = id.match(playlistIdRegex);
-    const playlistId = matches ? matches[1] : null;
     spotify
       .play({
         context_uri: `${playlistId}`,
@@ -55,8 +42,9 @@ const Discoverweekly = () => {
             playing: true,
           });
         });
+        alert("reason: Premium required 😔");
       })
-      .catch(() => alert("reason: Premium required"));
+      .catch(() => "");
   };
   const playSong = (id) => {
     spotify
@@ -98,7 +86,7 @@ const Discoverweekly = () => {
             <div className=" body__infoText w-full md:flex-1 p-4 mt-11">
               <strong>PLAYLIST</strong>
               <h2 className="font-bold text-6xl">{discover_weekly?.name}</h2>
-              <p>{extractedText}</p>
+              <p>{parse(`${discover_weekly?.description}`)}</p>
             </div>
           </div>
 
@@ -106,7 +94,7 @@ const Discoverweekly = () => {
             <div className="body__icons">
               <PlayCircleFilledIcon
                 className="body__shuffle"
-                onClick={playPlaylist(discover_weekly.uri)}
+                onClick={playPlaylist(discover_weekly?.uri)}
               />
               <FavoriteIcon fontSize="large" />
               <FiMoreHorizontal className="text-[#A7A7A7] h-6 w-6" />

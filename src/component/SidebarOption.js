@@ -17,10 +17,11 @@ function SidebarOption({
 }) {
   const [{ token }, dispatch] = useStateValue();
 
-  const click = (x) => {
+  const click = (x = "") => {
     const playlistIdRegex = /spotify:playlist:(\w+)/;
     const matches = x.match(playlistIdRegex);
     const playlistId = matches ? matches[1] : null;
+
     if (token) {
       spotify.getPlaylist(playlistId).then((response) =>
         dispatch({
